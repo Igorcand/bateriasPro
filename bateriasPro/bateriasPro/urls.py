@@ -14,8 +14,8 @@ from sucata.views import router as sucata_router
 api = NinjaAPI()
 
 api.add_router("/vendas/", vendas_router, tags=["Vendas"])
-api.add_router("/clientes/", vendas_router, tags=["Clientes"])
-api.add_router("/estoque/", clientes_router, tags=["Estoque"])
+api.add_router("/clientes/", clientes_router, tags=["Clientes"])
+api.add_router("/estoque/", estoque_router, tags=["Estoque"])
 api.add_router("/financeiro/", financeiro_router, tags=["Financeiro"])
 api.add_router("/fornecedores/", fornecedores_router, tags=["Fornecedores"])
 api.add_router("/manutencao/", manutencao_router, tags=["Manutencao"])
