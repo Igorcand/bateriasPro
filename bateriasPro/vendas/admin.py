@@ -48,6 +48,15 @@ class VendaAdmin(admin.ModelAdmin):
                     bateria = item.bateria
                     bateria.quantidade_em_estoque -= item.quantidade
                     bateria.save()
+                
+                # Adiciona movimentação de sucata se houver sucata recebida
+                if obj.sucata_recebida_kg and obj.sucata_recebida_kg > 0:
+                    MovimentacaoSucata.objects.create(
+                        tipo=TipoMovimentacao.ENTRADA_TROCA,
+                        quantidade_kg=obj.sucata_recebida_kg,
+                        venda=obj,
+                        observacao=f"Recebida via venda #{obj.id}"
+                    )
 
         except ValueError as e:
             self.message_user(request, str(e), level=messages.ERROR)

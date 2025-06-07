@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'fornecedores',
     'financeiro',
     'sucata',
+    'manutencao',
 
 ]
 

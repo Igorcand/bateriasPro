@@ -4,6 +4,7 @@ class TipoServico(models.TextChoices):
     INSTALACAO = "INSTALACAO", "Instalação"
     TESTE = "TESTE", "Teste de bateria"
     LIMPEZA = "LIMPEZA", "Limpeza de polo"
+    CARGA = "CARGA", "Carga de bateria"
     OUTRO = "OUTRO", "Outro"
 
 class Servico(models.Model):
