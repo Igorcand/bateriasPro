@@ -1,22 +1,30 @@
-"""
-URL configuration for bateriasPro project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
+from ninja import NinjaAPI
+from vendas.views import router as vendas_router
+from clientes.views import router as clientes_router
+from estoque.views import router as estoque_router
+from financeiro.views import router as financeiro_router
+from fornecedores.views import router as fornecedores_router
+from manutencao.views import router as manutencao_router
+from servicos.views import router as servicos_router
+from sucata.views import router as sucata_router
+
+
+api = NinjaAPI()
+
+api.add_router("/vendas/", vendas_router, tags=["Vendas"])
+api.add_router("/clientes/", vendas_router, tags=["Clientes"])
+api.add_router("/estoque/", clientes_router, tags=["Estoque"])
+api.add_router("/financeiro/", financeiro_router, tags=["Financeiro"])
+api.add_router("/fornecedores/", fornecedores_router, tags=["Fornecedores"])
+api.add_router("/manutencao/", manutencao_router, tags=["Manutencao"])
+api.add_router("/servicos/", servicos_router, tags=["Servicos"])
+api.add_router("/sucata/", sucata_router, tags=["Sucata"])
+
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
+    path("api/", api.urls),
 ]

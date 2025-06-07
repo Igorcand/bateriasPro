@@ -5,6 +5,8 @@ from django.urls import reverse
 
 from .models import Venda, ItemVenda, Carro
 from .service import VendaService
+from django.db import transaction
+from .repository import ItemVendaRepository
 
 class ItemVendaInline(admin.TabularInline):
     model = ItemVenda
@@ -22,13 +24,15 @@ class VendaAdmin(admin.ModelAdmin):
         return super().response_add(request, obj, post_url_continue)
 
     def save_related(self, request, form, formsets, change):
-        obj = form.instance
-
         try:
-            super().save_related(request, form, formsets, change)
-            VendaService.processar_venda(obj)
+            with transaction.atomic():
+                super().save_related(request, form, formsets, change)
+
+                venda = form.instance
+                itens = ItemVendaRepository.get_by_venda(venda)
+                VendaService.processar_venda(venda, itens)
 
         except ValueError as e:
             self.message_user(request, str(e), level=messages.ERROR)
-            obj.delete()
+            form.instance.delete()
             self._erro_estoque = True
