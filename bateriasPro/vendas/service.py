@@ -3,20 +3,6 @@ from sucata.models import MovimentacaoSucata, TipoMovimentacao
 from django.db import transaction
 
 class VendaService:
-
-    @staticmethod
-    @transaction.atomic
-    def criar_venda_com_itens_e_processar(venda_data, itens_data):
-        venda = VendaRepository.criar(venda_data)
-
-        itens = []
-        for item_data in itens_data:
-            item = ItemVendaRepository.criar(venda, item_data)
-            itens.append(item)
-
-        VendaService.processar_venda(venda, itens)
-        return venda
-
     @staticmethod
     def processar_venda(venda, itens=None):
         if itens is None:

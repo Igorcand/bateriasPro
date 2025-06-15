@@ -18,6 +18,5 @@ class VendaOut(BaseModel):
     id: int
     cliente: int
     carro: int
-    data: date
     sucata_recebida_kg: float
     desconto_por_sucata: float
