@@ -12,6 +12,10 @@ class ItemVendaInline(admin.TabularInline):
     model = ItemVenda
     extra = 1
 
+@admin.register(Carro)
+class CarroAdmin(admin.ModelAdmin):
+    pass
+
 @admin.register(Venda)
 class VendaAdmin(admin.ModelAdmin):
     inlines = [ItemVendaInline]
